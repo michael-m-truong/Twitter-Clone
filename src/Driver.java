@@ -13,12 +13,13 @@ import composite.UserGroup;
 import controllers.AdminController;
 import singleton.RootGroup;
 import views.AdminView;
-import visitor.TwitterVisitor;
+import visitor.CountUsersVisitor;
+import visitor.ITwitterVisitor;
 
 public class Driver {
     public static void main(String[] args) {
         IUserGroup root = RootGroup.getInstance();
-        IUserCluster p1 = new User("Michael");
+        /*IUserCluster p1 = new User("Michael");
         IUserCluster p2 = new User("Nick");
         IUserGroup g1 = new UserGroup("School Friends");
         IUserGroup g2 = new UserGroup("Basketball");
@@ -27,9 +28,9 @@ public class Driver {
         root.addUserCluster(p2);
         root.addUserCluster(g1);
         g1.addUserCluster(g2);
-        g2.addUserCluster(p3);
-        TwitterVisitor ElonMusk = new TwitterVisitor();
-        root.accept(ElonMusk);
+        g2.addUserCluster(p3); */
+        ITwitterVisitor ElonMusk = new CountUsersVisitor();
+        System.out.println(root.accept(ElonMusk));
         // List<IUserCluster> users = root.getUserGroup();
         // for (int i = 0; i < users.size(); i++) {
         //     System.out.println(users.get(i).getID());

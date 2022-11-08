@@ -1,6 +1,6 @@
 package composite;
 
-import visitor.TwitterVisitor;
+import visitor.ITwitterVisitor;
 
 public class User implements IUserCluster, IUser {
     private String UserID;
@@ -28,8 +28,8 @@ public class User implements IUserCluster, IUser {
     }
 
     @Override
-    public void accept(TwitterVisitor visitor) {
-        visitor.visit(this);
+    public int accept(ITwitterVisitor visitor) {
+        return visitor.visit(this);
         // TODO Auto-generated method stub
         
     }

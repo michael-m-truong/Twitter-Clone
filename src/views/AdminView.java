@@ -33,6 +33,7 @@ public class AdminView extends JFrame{
     private JTextField userGroupIDTextField;
     private JButton userIDButton;
     private JButton userGroupIDButton;
+    private JButton openUserViewButton;
     private JPanel buttonPanel;
     private JPanel treePanel;
     private JLabel userIDLabel;
@@ -42,13 +43,13 @@ public class AdminView extends JFrame{
 
     public AdminView(){
         
-        RootGroup root = (RootGroup) RootGroup.getInstance();
+        RootGroup root = RootGroup.getInstance();
         TwitterTreeNode rootNode = new TwitterTreeNode(root.getID(), true);
         root.setRootNode(rootNode);
-        TwitterTreeNode n1 = new TwitterTreeNode("test", true);
-        TwitterTreeNode n2 = new TwitterTreeNode("testing", true);
-        rootNode.add(n1);
-        n1.add(n2);
+        // TwitterTreeNode n1 = new TwitterTreeNode("test", true);
+        // TwitterTreeNode n2 = new TwitterTreeNode("testing", true);
+        // rootNode.add(n1);
+        // n1.add(n2);
     
         
         //renderer.setOpenIcon();
@@ -68,6 +69,7 @@ public class AdminView extends JFrame{
         userGroupIDTextField = new JTextField();
         userGroupIDButton = new JButton("Save User Group ID");
         userGroupIDLabel = new JLabel("User GroupID");
+        openUserViewButton = new JButton("Open User View");
         //test = new JLabel("testttt");
 
         userIDTextField.setSize(80, 25);
@@ -78,6 +80,7 @@ public class AdminView extends JFrame{
         userGroupIDLabel.setSize(80,25);
         buttonPanel.setSize(400, 800);
         treePanel.setSize(400, 800);
+        openUserViewButton.setSize(300,60);
         //test.setSize(80,25);
 
         userIDButton.setLocation(225,100);
@@ -90,6 +93,7 @@ public class AdminView extends JFrame{
         buttonPanel.setLocation(400, 0);
         treePanel.setLocation(0, 0);
         tree.setLocation(50,00);
+        openUserViewButton.setLocation(50,350);
         treePanel.setBackground(Color.LIGHT_GRAY);
         final Font currentFont = tree.getFont();
         final Font bigFont = new Font(currentFont.getName(), currentFont.getStyle(), currentFont.getSize() + 10);
@@ -108,6 +112,7 @@ public class AdminView extends JFrame{
         buttonPanel.add(userGroupIDButton);
         buttonPanel.add(userGroupIDTextField);
         buttonPanel.add(userGroupIDLabel);
+        buttonPanel.add(openUserViewButton);
         treePanel.add(tree);
         //treePanel.add(test);
         //treePanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -122,6 +127,8 @@ public class AdminView extends JFrame{
     public JButton getUserGroupIDButton() { return userGroupIDButton; }
 
     public JTextField getUserGroupIDTextField() { return userGroupIDTextField; }
+
+    public JButton getOpenUserViewButton() { return openUserViewButton; }
 
     public JTree getTree() { return tree; }
 }

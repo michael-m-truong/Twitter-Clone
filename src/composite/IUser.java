@@ -1,6 +1,6 @@
 package composite;
 
-public interface IUser {
+public interface IUser extends IUserCluster{
     
     void followUser(IUserCluster user);
 

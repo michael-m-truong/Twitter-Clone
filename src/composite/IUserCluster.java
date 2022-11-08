@@ -1,11 +1,12 @@
 package composite;
 
-import visitor.TwitterVisitor;
+import visitor.CountUsersVisitor;
+import visitor.ITwitterVisitor;
 
 public interface IUserCluster {
 
     String getID();
 
-    void accept(TwitterVisitor visitor);
+    int accept(ITwitterVisitor visitor);
     
 }

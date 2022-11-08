@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import singleton.RootGroup;
-import visitor.TwitterVisitor;
+import visitor.ITwitterVisitor;
 
 public class UserGroup implements IUserCluster, IUserGroup {
     private List<IUserCluster> users = new ArrayList<>();
@@ -36,13 +36,13 @@ public class UserGroup implements IUserCluster, IUserGroup {
         return UserGroupID;
     }
 
-    public void accept(TwitterVisitor visitor) {
+    public int accept(ITwitterVisitor visitor) {
         //System.out.println("test");
-        visitor.visit(this);
-        users.forEach(child -> {
-            child.accept(visitor);
-            //System.out.println("eeeee");
-        });
+        return visitor.visit(this);
+        // users.forEach(child -> {
+        //     child.accept(visitor);
+        //     //System.out.println("eeeee");
+        // });
         //System.out.println(users.size());
         //System.out.println("test2");
     }
