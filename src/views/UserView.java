@@ -32,10 +32,11 @@ public class UserView extends JFrame implements Observer{
     private JScrollPane tweetListPane;
     private DefaultListModel<String> tweetListModel;
 
+    private User user;
 
-    public UserView(String userID){
+    public UserView(String userID, User user){
         
-
+        this.user = user;
         this.setSize(600,800);
         this.setLayout(null);
         this.setTitle(userID);
@@ -143,9 +144,13 @@ public class UserView extends JFrame implements Observer{
 
     @Override
     public void update(Subject user) {
-        model.add(model.size(), user.getLatestData().get(0));
-        tweetListModel.add(tweetListModel.size(),user.getLatestData().get(1));
+        //model.add(model.size(), user.getLatestData().get(0));
+        tweetListModel.add(tweetListModel.size(),user.getLatestData());
         System.out.println("notified!!!!!!!!");
+    }
+
+    public User getUser() {
+        return user;
     }
 
 

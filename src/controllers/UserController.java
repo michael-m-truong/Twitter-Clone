@@ -28,7 +28,7 @@ public class UserController extends Subject{
         updateNewsFeed();
         view.initializeFollowingList(user);
         view.initializeNewsfeed(user);
-        this.attach(view);
+        //this.attach(view);
     }
 
     public void display() {
@@ -46,9 +46,10 @@ public class UserController extends Subject{
             followedUser.attach((Observer) user);
             model.add(model.size(),textField.getText());
             System.out.println("followed user: "+ followedUser.getID());
+            setLatestData(user.getID());
+            notifyObservers();
         });
-        setLatestData(user.getID(),0);
-        notifyObservers();
+        
     }
 
     public void updateNewsFeed() {
@@ -58,9 +59,11 @@ public class UserController extends Subject{
         button.addActionListener(e -> { 
             user.tweetMessage(user.getID() + ": " + textField.getText());
             model.add(model.size(), user.getID() + ": " + textField.getText());
+            setLatestData(user.getID() + ": " + textField.getText());
+            System.out.println("hereeeeeeeeeee");
+            notifyObservers();
         });
-        setLatestData(user.getID() + ": " + textField.getText(), 1);
-        notifyObservers();
+        
     }
 
 

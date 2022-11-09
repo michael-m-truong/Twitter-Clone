@@ -10,6 +10,8 @@ import composite.IUserCluster;
 import composite.IUserGroup;
 import composite.User;
 import composite.UserGroup;
+import observer.Observer;
+import observer.Subject;
 import singleton.RootGroup;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ import visitor.ITwitterVisitor;
 public class AdminController {
     private AdminView view;
     private DefaultMutableTreeNode selectedNode;
+    private List<UserView> userViews = new ArrayList<>();
 
     public AdminController(AdminView view) {
         this.view = view;
@@ -67,8 +70,21 @@ public class AdminController {
                 return;
             }
             System.out.println(selectedUser.getID() + "IDDd");
-            UserView userView = new UserView(selectedUser.getID());
+            UserView userView = new UserView(selectedUser.getID(), (User) selectedUser);
             UserController userController = new UserController(userView, selectedUser);
+            userViews.add(userView);
+            System.out.println("user views: "  + userViews.size());
+            for (UserView view : userViews) {
+                if (view == userView) {
+                    continue;
+                }
+                else if (!view.getUser().getCurrentFollowingList().contains(selectedUser)) {
+                    continue;
+                }
+                userController.attach(view);
+                userController.getObservers();
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            }
             userController.display();
         });
     }
