@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import singleton.RootGroup;
+import visitor.GetUserVisitor;
 import visitor.ITwitterVisitor;
 
 public class UserGroup implements IUserCluster, IUserGroup {
@@ -47,5 +48,8 @@ public class UserGroup implements IUserCluster, IUserGroup {
         //System.out.println("test2");
     }
     
-    
+    public User findUser(GetUserVisitor visitor) {
+        return visitor.visit(this);
+    }
+
 }

@@ -20,6 +20,7 @@ import views.AdminView;
 import views.TwitterTreeNode;
 import views.UserView;
 import visitor.CountUsersVisitor;
+import visitor.GetUserVisitor;
 import visitor.ITwitterVisitor;
 
 public class AdminController {
@@ -112,6 +113,8 @@ public class AdminController {
             selectedUserGroup.add(newUser);
             ITwitterVisitor ElonMusk = new CountUsersVisitor();
             System.out.println(rootGroup.accept(ElonMusk));
+            System.out.println(rootGroup.findUser(new GetUserVisitor(userID)).getID());
+            System.out.println("-----------------------");
         });
     }
 

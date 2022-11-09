@@ -20,6 +20,14 @@ public class UserView extends JFrame{
     private JScrollPane followingListPane;
     private DefaultListModel<String> model;
 
+    private JPanel tweetPanel;
+    private JTextField tweetTextField;
+    private JButton tweetButton;
+    private JList<String> newsfeed;
+    private JScrollPane tweetListPane;
+    private DefaultListModel<String> tweetListModel;
+
+
     public UserView(String userID){
         this.setSize(600,800);
         this.setLayout(null);
@@ -28,19 +36,29 @@ public class UserView extends JFrame{
         //currentFollowing[0] = "my";
         //currentFollowing[1] = "mom";
         model = new DefaultListModel<>();
+        tweetListModel = new DefaultListModel<>();
 
         followPanel = new JPanel();
-        followingListPane = new JScrollPane();
+        //followingListPane = new JScrollPane();
         followUserTextField = new JTextField();
         followUserButton = new JButton("Follow User");
         followingList = new JList<String>(model);
-        model.add(model.size(), "test");
-        model.add(model.size(), "efee");
-        model.add(model.size(), "tr");
+        // model.add(model.size(), "test");
+        // model.add(model.size(), "efee");
+        // model.add(model.size(), "tr");
+        tweetButton = new JButton("Tweet Message");
+        tweetPanel = new JPanel();
+        tweetTextField = new JTextField();
+        tweetListPane = new JScrollPane();
+        tweetListModel = new DefaultListModel<>();
+        newsfeed = new JList<>(tweetListModel);
+        
 
 
         //followingList.setVisibleRowCount(2);
         followingListPane = new JScrollPane(followingList);
+        tweetListPane = new JScrollPane(newsfeed);
+    
 
         followUserButton.setSize(150,50);
         followUserTextField.setSize(145, 25);
@@ -49,18 +67,30 @@ public class UserView extends JFrame{
         followPanel.setBackground(new Color(29,161,242));
         followingListPane.setBackground(Color.lightGray);
         //followingList.setSize(200, 200);
+        tweetButton.setSize(150,50);
+        tweetTextField.setSize(145, 25);
+        tweetPanel.setSize(600,180);
+        tweetPanel.setBackground(new Color(29,161,242));
+        tweetListPane.setSize(600,220);
+        tweetListPane.setBackground(Color.lightGray);
+
 
         followUserButton.setLocation(300, 25);
         followUserTextField.setLocation(25, 25);
         followingList.setLocation(25, 50);
         followingListPane.setLocation(0, 200);
-
+        tweetButton.setLocation(300,25);
+        tweetTextField.setLocation(25,25);
+        tweetPanel.setLocation(0,400);
+        tweetListPane.setLocation(0, 580);
         
 
 
         this.setLayout(null);
         this.add(followPanel);
         this.add(followingListPane);
+        this.add(tweetPanel);
+        this.add(tweetListPane);
         //this.add(followingListPane);
         //followingListPane.setLayout(null);
         followPanel.add(followUserButton);
@@ -68,6 +98,10 @@ public class UserView extends JFrame{
         followPanel.setLayout(null);
         //followingListPane.add(followingList);
         //followPanel.add(followingListPane);
+        tweetPanel.add(tweetButton);
+        tweetPanel.add(tweetTextField);
+        tweetPanel.setLayout(null);
+        
     }
 
     public JButton getFollowUserButton() { return followUserButton; }
@@ -77,4 +111,14 @@ public class UserView extends JFrame{
     public JList<String> getJList() { return followingList; }
 
     public JTextField getFollowUserTextField() { return followUserTextField; }
+
+    public JButton getTweetButton() { return tweetButton; }
+
+    public DefaultListModel<String> getTweetListModel() { return tweetListModel; }
+
+    public JList<String> getNewsfeed() {return newsfeed; }
+
+    public JTextField getTweetTextField() {return tweetTextField; }
+
+
 }

@@ -1,17 +1,22 @@
 package composite;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import visitor.GetUserVisitor;
 import visitor.ITwitterVisitor;
 
 public class User implements IUserCluster, IUser {
     private String UserID;
+    private List<User> currentFollowing = new ArrayList<>();
 
     public User(String UserID) {
         this.UserID = UserID;
     }
 
     @Override
-    public void followUser(IUserCluster user) {
-        // TODO Auto-generated method stub
+    public void followUser(User user) {
+        currentFollowing.add(user);
         
     }
 
@@ -32,6 +37,10 @@ public class User implements IUserCluster, IUser {
         return visitor.visit(this);
         // TODO Auto-generated method stub
         
+    }
+
+    public User findUser(GetUserVisitor visitor) {
+        return visitor.visit(this);
     }
     
 }

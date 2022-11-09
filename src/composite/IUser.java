@@ -2,7 +2,7 @@ package composite;
 
 public interface IUser extends IUserCluster{
     
-    void followUser(IUserCluster user);
+    void followUser(User user);
 
     void tweetMessage(String msg);
 }
