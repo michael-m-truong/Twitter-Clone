@@ -54,7 +54,7 @@ public class AdminController {
             List<IUserCluster> selectedUserGroup = rootGroup.getUserGroup();
             IUser selectedUser = null;
             for (int i = 1; i<selectedNode.getPath().length; i++) {
-                System.out.println(selectedNode.getPath().length + "long");
+                //System.out.println(selectedNode.getPath().length + "long");
                 if (i != selectedNode.getPath().length-1) {
                     IUserGroup tempSelectedGroup = (IUserGroup) selectedUserGroup.get(selectedNode.getPath()[i].getParent().getIndex(selectedNode.getPath()[i]));
                     selectedUserGroup = tempSelectedGroup.getUserGroup();

@@ -7,11 +7,13 @@ import javax.swing.JTextField;
 import composite.IUser;
 import composite.IUserGroup;
 import composite.User;
+import observer.Observer;
+import observer.Subject;
 import singleton.RootGroup;
 import views.UserView;
 import visitor.GetUserVisitor;
 
-public class UserController {
+public class UserController extends Subject{
     private UserView view;
     private IUser user;
 
@@ -24,6 +26,9 @@ public class UserController {
     public void initController() {
         updateFollowingList();
         updateNewsFeed();
+        view.initializeFollowingList(user);
+        view.initializeNewsfeed(user);
+        this.attach(view);
     }
 
     public void display() {
@@ -37,10 +42,13 @@ public class UserController {
         button.addActionListener(e -> { 
             IUserGroup rootGroup = RootGroup.getInstance();
             User followedUser = rootGroup.findUser(new GetUserVisitor(textField.getText()));
-            user.followUser(followedUser);
+            user.followUser((User) followedUser);
+            followedUser.attach((Observer) user);
             model.add(model.size(),textField.getText());
-            System.out.println(followedUser);
+            System.out.println("followed user: "+ followedUser.getID());
         });
+        setLatestData(user.getID(),0);
+        notifyObservers();
     }
 
     public void updateNewsFeed() {
@@ -48,7 +56,12 @@ public class UserController {
         DefaultListModel<String> model = view.getTweetListModel();
         JTextField textField = view.getTweetTextField();
         button.addActionListener(e -> { 
-            model.add(model.size(),textField.getText());
+            user.tweetMessage(user.getID() + ": " + textField.getText());
+            model.add(model.size(), user.getID() + ": " + textField.getText());
         });
+        setLatestData(user.getID() + ": " + textField.getText(), 1);
+        notifyObservers();
     }
+
+
 }

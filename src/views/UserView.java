@@ -12,7 +12,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
-public class UserView extends JFrame{
+import composite.IUser;
+import composite.User;
+import observer.Observer;
+import observer.Subject;
+
+public class UserView extends JFrame implements Observer{
     private JPanel followPanel;
     private JTextField followUserTextField;
     private JButton followUserButton;
@@ -29,6 +34,8 @@ public class UserView extends JFrame{
 
 
     public UserView(String userID){
+        
+
         this.setSize(600,800);
         this.setLayout(null);
         this.setTitle(userID);
@@ -104,6 +111,20 @@ public class UserView extends JFrame{
         
     }
 
+    public void initializeFollowingList(IUser user) {
+        for (User userFollowing : user.getCurrentFollowingList()) {
+            model.add(model.size(),userFollowing.getID());
+        }
+    }
+
+    public void initializeNewsfeed(IUser user) {
+        System.out.println(user.getNewsfeedList());
+        System.out.println("observers: " + ((Subject) user).getObservers());
+        for (String tweet : user.getNewsfeedList()) {
+            tweetListModel.add(tweetListModel.size(), tweet);
+        }
+    }
+
     public JButton getFollowUserButton() { return followUserButton; }
 
     public DefaultListModel<String> getListModel() { return model; }  //make visitor to search
@@ -119,6 +140,13 @@ public class UserView extends JFrame{
     public JList<String> getNewsfeed() {return newsfeed; }
 
     public JTextField getTweetTextField() {return tweetTextField; }
+
+    @Override
+    public void update(Subject user) {
+        model.add(model.size(), user.getLatestData().get(0));
+        tweetListModel.add(tweetListModel.size(),user.getLatestData().get(1));
+        System.out.println("notified!!!!!!!!");
+    }
 
 
 }
