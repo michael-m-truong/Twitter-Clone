@@ -3,13 +3,19 @@ package observer;
 import java.util.ArrayList;
 import java.util.List;
 
+import composite.INotification;
+
 public abstract class Subject {
     private List<Observer> observers = new ArrayList<>();
-    private String latestData;
+    private INotification latestData;
     
     public void attach(Observer observer) {
         System.out.println("attatched!!!!");
         observers.add(observer);
+    }
+
+    public void detach(Observer observer) {
+        observers.remove(observer);
     }
 
     public List<Observer> getObservers() {
@@ -17,11 +23,11 @@ public abstract class Subject {
         return observers;
     }
 
-    public String getLatestData() {
+    public INotification getLatestData() {
         return latestData;
     }
 
-    public void setLatestData(String data) {
+    public void setLatestData(INotification data) {
         latestData = data;
     }
 

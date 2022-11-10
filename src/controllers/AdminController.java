@@ -72,6 +72,7 @@ public class AdminController {
             System.out.println(selectedUser.getID() + "IDDd");
             UserView userView = new UserView(selectedUser.getID(), (User) selectedUser);
             UserController userController = new UserController(userView, selectedUser);
+            selectedUser.setUserController(userController);
             userViews.add(userView);
             System.out.println("user views: "  + userViews.size());
             for (UserView view : userViews) {

@@ -3,6 +3,7 @@ package composite;
 import java.util.ArrayList;
 import java.util.List;
 
+import controllers.UserController;
 import observer.Observer;
 import observer.Subject;
 import visitor.GetUserVisitor;
@@ -13,6 +14,7 @@ public class User extends Subject implements IUserCluster, IUser, Observer {
     private List<User> currentFollowing = new ArrayList<>();
     private List<String> newsfeed = new ArrayList<>();
     private List<String> userTweets = new ArrayList<>();
+    private UserController controller = null;
     //private String latestTweet;  /* this is the state */
 
     public User(String UserID) {
@@ -79,6 +81,14 @@ public class User extends Subject implements IUserCluster, IUser, Observer {
 
     public void addToNewsFeed(String tweet) {
         newsfeed.add(tweet);
+    }
+
+    public UserController getUserController() {
+        return controller;
+    }
+
+    public void setUserController(UserController userController) {
+        this.controller = userController;
     }
     
     

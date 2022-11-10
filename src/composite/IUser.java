@@ -2,6 +2,8 @@ package composite;
 
 import java.util.List;
 
+import controllers.UserController;
+
 public interface IUser extends IUserCluster{
     
     void followUser(User user);
@@ -11,4 +13,8 @@ public interface IUser extends IUserCluster{
     List<User> getCurrentFollowingList();
 
     List<String> getNewsfeedList();
+
+    public UserController getUserController();
+
+    public void setUserController(UserController userController);
 }

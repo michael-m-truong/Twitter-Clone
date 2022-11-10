@@ -4,8 +4,10 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+import composite.Follower;
 import composite.IUser;
 import composite.IUserGroup;
+import composite.Tweet;
 import composite.User;
 import observer.Observer;
 import observer.Subject;
@@ -46,7 +48,13 @@ public class UserController extends Subject{
             followedUser.attach((Observer) user);
             model.add(model.size(),textField.getText());
             System.out.println("followed user: "+ followedUser.getID());
-            setLatestData(user.getID());
+            if (followedUser.getUserController() != null){
+                followedUser.getUserController().attach(view);
+            }
+            Follower follower = new Follower();
+            follower.setNotification(user.getID());
+            follower.setUserID(user.getID());
+            setLatestData(follower);
             notifyObservers();
         });
         
@@ -59,7 +67,9 @@ public class UserController extends Subject{
         button.addActionListener(e -> { 
             user.tweetMessage(user.getID() + ": " + textField.getText());
             model.add(model.size(), user.getID() + ": " + textField.getText());
-            setLatestData(user.getID() + ": " + textField.getText());
+            Tweet tweet = new Tweet();
+            tweet.setNotification(user.getID() + ": " + textField.getText());
+            setLatestData(tweet);
             System.out.println("hereeeeeeeeeee");
             notifyObservers();
         });

@@ -12,7 +12,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
+import composite.Follower;
 import composite.IUser;
+import composite.IUserCluster;
+import composite.Tweet;
 import composite.User;
 import observer.Observer;
 import observer.Subject;
@@ -145,7 +148,14 @@ public class UserView extends JFrame implements Observer{
     @Override
     public void update(Subject user) {
         //model.add(model.size(), user.getLatestData().get(0));
-        tweetListModel.add(tweetListModel.size(),user.getLatestData());
+        if (user.getLatestData() instanceof Tweet) {
+            tweetListModel.add(tweetListModel.size(),user.getLatestData().getNotification());
+        }
+        else if (user.getLatestData() instanceof Follower) {
+            if (this.user.getID() == user.getLatestData().getUserID()) {
+                model.add(model.size(), user.getLatestData().getNotification());
+            }
+        }
         System.out.println("notified!!!!!!!!");
     }
 
