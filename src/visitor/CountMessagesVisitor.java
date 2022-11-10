@@ -1,10 +1,9 @@
 package visitor;
 
-import composite.IUserCluster;
 import composite.User;
 import composite.UserGroup;
 
-public class CountUsersVisitor implements ITwitterVisitor{
+public class CountMessagesVisitor implements ITwitterVisitor{
     
     private int count;
 
@@ -21,6 +20,6 @@ public class CountUsersVisitor implements ITwitterVisitor{
 
     public int visit(User user) {
         System.out.println(user.getID());
-        return 1;
+        return user.getUserTweets().size();
     }
 }

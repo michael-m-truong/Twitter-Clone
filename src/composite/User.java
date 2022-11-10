@@ -90,6 +90,10 @@ public class User extends Subject implements IUserCluster, IUser, Observer {
     public void setUserController(UserController userController) {
         this.controller = userController;
     }
+
+    public List<String> getUserTweets() {
+        return userTweets;
+    }
     
     
 }

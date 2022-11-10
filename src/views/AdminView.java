@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.LayoutManager;
 import java.lang.instrument.UnmodifiableModuleException;
+import java.sql.JDBCType;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -39,6 +40,11 @@ public class AdminView extends JFrame{
     private JLabel userIDLabel;
     private JLabel userGroupIDLabel;
     private JTree tree;
+    private JButton showUserTotalButton;
+    private JButton showGroupTotalButton;
+    private JButton showMessagesTotalButton;
+    private JButton showPositivePercentageButton;
+
     //private JLabel test;
 
     public AdminView(){
@@ -70,6 +76,10 @@ public class AdminView extends JFrame{
         userGroupIDButton = new JButton("Save User Group ID");
         userGroupIDLabel = new JLabel("User GroupID");
         openUserViewButton = new JButton("Open User View");
+        showUserTotalButton = new JButton("Show User Total");
+        showGroupTotalButton = new JButton("Show Group Total");
+        showMessagesTotalButton = new JButton("Show Messages Total");
+        showPositivePercentageButton = new JButton("Show Positive Percentage");
         //test = new JLabel("testttt");
 
         userIDTextField.setSize(80, 25);
@@ -82,6 +92,10 @@ public class AdminView extends JFrame{
         treePanel.setSize(400, 800);
         openUserViewButton.setSize(300,60);
         //test.setSize(80,25);
+        showUserTotalButton.setSize(190, 50);
+        showGroupTotalButton.setSize(190, 50);
+        showMessagesTotalButton.setSize(190, 50);
+        showPositivePercentageButton.setSize(190, 50);
 
         userIDButton.setLocation(225,100);
         userIDTextField.setLocation(125, 100);
@@ -95,6 +109,10 @@ public class AdminView extends JFrame{
         tree.setLocation(50,00);
         openUserViewButton.setLocation(50,350);
         treePanel.setBackground(Color.LIGHT_GRAY);
+        showUserTotalButton.setLocation(10, 500);
+        showGroupTotalButton.setLocation(200, 500);
+        showMessagesTotalButton.setLocation(10, 650);
+        showPositivePercentageButton.setLocation(200, 650);
         final Font currentFont = tree.getFont();
         final Font bigFont = new Font(currentFont.getName(), currentFont.getStyle(), currentFont.getSize() + 10);
         tree.setFont(bigFont);
@@ -113,6 +131,10 @@ public class AdminView extends JFrame{
         buttonPanel.add(userGroupIDTextField);
         buttonPanel.add(userGroupIDLabel);
         buttonPanel.add(openUserViewButton);
+        buttonPanel.add(showUserTotalButton);
+        buttonPanel.add(showGroupTotalButton);
+        buttonPanel.add(showMessagesTotalButton);
+        buttonPanel.add(showPositivePercentageButton);
         treePanel.add(tree);
         //treePanel.add(test);
         //treePanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
@@ -131,4 +153,14 @@ public class AdminView extends JFrame{
     public JButton getOpenUserViewButton() { return openUserViewButton; }
 
     public JTree getTree() { return tree; }
+
+    public JButton getShowUserTotalButton() { return showUserTotalButton; }
+
+    public JButton getShowGroupTotalButton() {return showGroupTotalButton; }
+
+    public JButton getShowMessageTotalButton() {return showMessagesTotalButton; }
+
+    public JButton getShowPositivePercentageButton() {return showPositivePercentageButton; }
+
+
 }

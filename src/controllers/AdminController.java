@@ -2,6 +2,7 @@ package controllers;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
@@ -21,6 +22,9 @@ import java.util.Vector;
 import views.AdminView;
 import views.TwitterTreeNode;
 import views.UserView;
+import visitor.CountGroupsVisitor;
+import visitor.CountMessagesVisitor;
+import visitor.CountPositiveMessagesVisitor;
 import visitor.CountUsersVisitor;
 import visitor.GetUserVisitor;
 import visitor.ITwitterVisitor;
@@ -39,6 +43,7 @@ public class AdminController {
         saveUserID();
         saveUserGroupID();
         displayUserView();
+        displayStats();
     }
 
     public void display() {
@@ -76,17 +81,27 @@ public class AdminController {
             userViews.add(userView);
             System.out.println("user views: "  + userViews.size());
             for (UserView view : userViews) {
+                System.out.println("user1: " + view.getUser().getID());
+                System.out.println("user2: " + userView.getUser().getID());
                 if (view == userView) {
+                    System.out.println("intersetinggggggggg");
                     continue;
+                }
+                 else if (view.getUser().getID() == userView.getUser().getID()) {
+                     userController.attach(view);
+                    
                 }
                 else if (!view.getUser().getCurrentFollowingList().contains(selectedUser)) {
                     continue;
                 }
-                userController.attach(view);
-                userController.getObservers();
-                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                else {
+                    userController.attach(view);
+                    userController.getObservers();
+                    System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+                }
             }
             userController.display();
+            System.out.println("user views: " + userViews.size());
         });
     }
 
@@ -161,6 +176,69 @@ public class AdminController {
             }
             IUserCluster newUserGroup = new UserGroup(userGroupID);
             selectedUserGroup.add(newUserGroup);
+        });
+    }
+
+    public void displayStats() {
+        JButton userTotalButton = view.getShowUserTotalButton();
+        JButton groupTotalButton = view.getShowGroupTotalButton();
+        JButton messagesTotalButton = view.getShowMessageTotalButton();
+        JButton positivePercentageButton = view.getShowPositivePercentageButton();
+
+        userTotalButton.addActionListener(e -> {
+            JFrame jframe = new JFrame();
+            jframe.setSize(300, 300);
+            JLabel stat = new JLabel();
+            ITwitterVisitor visitor = new CountUsersVisitor();
+            IUserGroup root = RootGroup.getInstance();
+            stat.setText("Total users: " + String.valueOf(root.accept(visitor)));
+            stat.setLocation(75,150);
+            jframe.add(stat);
+            jframe.setVisible(true);
+        });
+        groupTotalButton.addActionListener(e -> {
+            JFrame jframe = new JFrame();
+            jframe.setSize(300, 300);
+            JLabel stat = new JLabel();
+            ITwitterVisitor visitor = new CountGroupsVisitor();
+            IUserGroup root = RootGroup.getInstance();
+            stat.setText("Total groups: " + String.valueOf(root.accept(visitor)));
+            stat.setLocation(75,150);
+            jframe.add(stat);
+            jframe.setVisible(true);
+        });
+        messagesTotalButton.addActionListener(e -> {
+            JFrame jframe = new JFrame();
+            jframe.setSize(300, 300);
+            JLabel stat = new JLabel();
+            ITwitterVisitor visitor = new CountMessagesVisitor();
+            IUserGroup root = RootGroup.getInstance();
+            stat.setText("Total messages: " + String.valueOf(root.accept(visitor)));
+            stat.setLocation(75,150);
+            jframe.add(stat);
+            jframe.setVisible(true);
+        });
+        positivePercentageButton.addActionListener(e -> {
+            JFrame jframe = new JFrame();
+            jframe.setSize(300, 300);
+            JLabel stat = new JLabel();
+            ITwitterVisitor positiveVisitor = new CountPositiveMessagesVisitor();
+            ITwitterVisitor totalMsgsVisitor = new CountMessagesVisitor();
+            IUserGroup root = RootGroup.getInstance();
+            double totalTweets = root.accept(totalMsgsVisitor);
+            double goodTweets =  root.accept(positiveVisitor);
+            System.out.println("good tweets: " + goodTweets);
+            System.out.println("tweets: " + totalTweets);
+            if (totalTweets != 0) {
+                System.out.println("more than 1");
+                stat.setText("Positive tweet percentage: " + ((goodTweets/totalTweets)*100) + "%");
+            }
+            else {
+                stat.setText("Positive tweet percentage: 0%");
+            }
+            stat.setLocation(75,150);
+            jframe.add(stat);
+            jframe.setVisible(true);
         });
     }
 }
