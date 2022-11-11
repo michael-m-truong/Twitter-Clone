@@ -11,6 +11,7 @@ public class CountPositiveMessagesVisitor implements ITwitterVisitor{
     private String[] positiveWords = {"good", "great", "amazing"};
 
     public int visit(UserGroup userGroup) {
+        count = 0;
         System.out.println(userGroup.getID());
         userGroup.getUserGroup().forEach(child -> {
             count+=child.accept(this);
@@ -32,6 +33,7 @@ public class CountPositiveMessagesVisitor implements ITwitterVisitor{
                 }
             }
         }
+        System.out.println("size:------" + totalTweets.size());
         return count;
     }
     

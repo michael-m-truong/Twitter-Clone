@@ -103,7 +103,7 @@ public class AdminView extends JFrame{
         userGroupIDButton.setLocation(225,200);
         userGroupIDTextField.setLocation(125, 200);
         userGroupIDLabel.setLocation(0,200);
-        buttonPanel.setBackground(Color.gray);
+        buttonPanel.setBackground(new Color(29,161,242));
         buttonPanel.setLocation(400, 0);
         treePanel.setLocation(0, 0);
         tree.setLocation(50,00);
