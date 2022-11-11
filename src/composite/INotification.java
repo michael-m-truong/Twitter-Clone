@@ -7,6 +7,4 @@ public interface INotification {
     void setNotification(String notification);
 
     String getUserID();
-
-    void setUserID(String userID);
 }

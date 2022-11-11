@@ -2,6 +2,7 @@ package composite;
 
 public class Tweet implements INotification{
 
+    private String userID;
     private String notification;
 
     @Override
@@ -15,17 +16,8 @@ public class Tweet implements INotification{
         
     }
 
-    @Override
     public String getUserID() {
-        // TODO Auto-generated method stub
-        return null;
+        return userID;
     }
-
-    @Override
-    public void setUserID(String userID) {
-        // TODO Auto-generated method stub
-        
-    }
-    
     
 }

@@ -8,7 +8,4 @@ public interface IUserGroup extends IUserCluster{
 
     List<IUserCluster> getUserGroup();
 
-    /**
-     * Interface because in the future what if we want to delete user
-     */
 }

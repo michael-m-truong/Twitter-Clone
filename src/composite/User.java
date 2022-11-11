@@ -15,7 +15,6 @@ public class User extends Subject implements IUser, Observer {
     private List<String> newsfeed = new ArrayList<>();
     private List<String> userTweets = new ArrayList<>();
     private UserController controller = null;
-    //private String latestTweet;  /* this is the state */
 
     public User(String UserID) {
         this.UserID = UserID;
@@ -52,14 +51,12 @@ public class User extends Subject implements IUser, Observer {
 
     @Override
     public String getID() {
-        // TODO Auto-generated method stub
         return UserID;
     }
 
     @Override
     public int accept(ITwitterVisitor visitor) {
         return visitor.visit(this);
-        // TODO Auto-generated method stub
         
     }
 

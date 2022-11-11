@@ -21,13 +21,11 @@ public class UserGroup implements IUserGroup {
 
     @Override
     public List<IUserCluster> getUserGroup() {
-        // TODO Auto-generated method stub
         return users;
     }
 
     @Override
     public String getID() {
-        // TODO Auto-generated method stub
         return UserGroupID;
     }
 
