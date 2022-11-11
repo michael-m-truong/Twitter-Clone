@@ -1,8 +1,6 @@
 package views;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -14,7 +12,6 @@ import javax.swing.JTextField;
 
 import composite.Follower;
 import composite.IUser;
-import composite.IUserCluster;
 import composite.Tweet;
 import composite.User;
 import observer.Observer;
@@ -44,19 +41,13 @@ public class UserView extends JFrame implements Observer{
         this.setLayout(null);
         this.setTitle(userID);
 
-        //currentFollowing[0] = "my";
-        //currentFollowing[1] = "mom";
         model = new DefaultListModel<>();
         tweetListModel = new DefaultListModel<>();
 
         followPanel = new JPanel();
-        //followingListPane = new JScrollPane();
         followUserTextField = new JTextField();
         followUserButton = new JButton("Follow User");
         followingList = new JList<String>(model);
-        // model.add(model.size(), "test");
-        // model.add(model.size(), "efee");
-        // model.add(model.size(), "tr");
         tweetButton = new JButton("Tweet Message");
         tweetPanel = new JPanel();
         tweetTextField = new JTextField();
@@ -66,7 +57,6 @@ public class UserView extends JFrame implements Observer{
         
 
 
-        //followingList.setVisibleRowCount(2);
         followingListPane = new JScrollPane(followingList);
         tweetListPane = new JScrollPane(newsfeed);
     
@@ -77,7 +67,6 @@ public class UserView extends JFrame implements Observer{
         followingListPane.setSize(600,200);
         followPanel.setBackground(new Color(29,161,242));
         followingListPane.setBackground(Color.lightGray);
-        //followingList.setSize(200, 200);
         tweetButton.setSize(150,50);
         tweetTextField.setSize(145, 25);
         tweetPanel.setSize(600,180);
@@ -102,13 +91,9 @@ public class UserView extends JFrame implements Observer{
         this.add(followingListPane);
         this.add(tweetPanel);
         this.add(tweetListPane);
-        //this.add(followingListPane);
-        //followingListPane.setLayout(null);
         followPanel.add(followUserButton);
         followPanel.add(followUserTextField);
         followPanel.setLayout(null);
-        //followingListPane.add(followingList);
-        //followPanel.add(followingListPane);
         tweetPanel.add(tweetButton);
         tweetPanel.add(tweetTextField);
         tweetPanel.setLayout(null);
@@ -122,8 +107,6 @@ public class UserView extends JFrame implements Observer{
     }
 
     public void initializeNewsfeed(IUser user) {
-        System.out.println(user.getNewsfeedList());
-        System.out.println("observers: " + ((Subject) user).getObservers());
         for (String tweet : user.getNewsfeedList()) {
             tweetListModel.add(tweetListModel.size(), tweet);
         }
@@ -147,7 +130,6 @@ public class UserView extends JFrame implements Observer{
 
     @Override
     public void update(Subject user) {
-        //model.add(model.size(), user.getLatestData().get(0));
         if (user.getLatestData() instanceof Tweet) {
             tweetListModel.add(tweetListModel.size(),user.getLatestData().getNotification());
         }
@@ -156,7 +138,6 @@ public class UserView extends JFrame implements Observer{
                 model.add(model.size(), user.getLatestData().getNotification());
             }
         }
-        System.out.println("notified!!!!!!!!");
     }
 
     public User getUser() {

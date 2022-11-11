@@ -10,7 +10,6 @@ public abstract class Subject {
     private INotification latestData;
     
     public void attach(Observer observer) {
-        System.out.println("attatched!!!!");
         observers.add(observer);
     }
 
@@ -19,7 +18,6 @@ public abstract class Subject {
     }
 
     public List<Observer> getObservers() {
-        System.out.println("model observerszzzz: " + observers.size());
         return observers;
     }
 
@@ -32,7 +30,6 @@ public abstract class Subject {
     }
 
     public void notifyObservers() {
-        System.out.println("model observers: " + observers.size());
         for (Observer observer: observers) {
             observer.update(this);
         }

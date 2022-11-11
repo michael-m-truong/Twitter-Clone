@@ -1,31 +1,18 @@
 package views;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
-import java.awt.LayoutManager;
-import java.lang.instrument.UnmodifiableModuleException;
-import java.sql.JDBCType;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTree;
-import javax.swing.UIManager;
-import javax.swing.text.FlowView;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeCellRenderer;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
 
 import java.awt.FlowLayout;
 
-import composite.IUserCluster;
-import composite.IUserGroup;
 import singleton.RootGroup;
 
 public class AdminView extends JFrame{
@@ -45,20 +32,12 @@ public class AdminView extends JFrame{
     private JButton showMessagesTotalButton;
     private JButton showPositivePercentageButton;
 
-    //private JLabel test;
 
     public AdminView(){
         
         RootGroup root = RootGroup.getInstance();
         TwitterTreeNode rootNode = new TwitterTreeNode(root.getID(), true);
         root.setRootNode(rootNode);
-        // TwitterTreeNode n1 = new TwitterTreeNode("test", true);
-        // TwitterTreeNode n2 = new TwitterTreeNode("testing", true);
-        // rootNode.add(n1);
-        // n1.add(n2);
-    
-        
-        //renderer.setOpenIcon();
         
         buttonPanel = new JPanel();
         treePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -80,7 +59,6 @@ public class AdminView extends JFrame{
         showGroupTotalButton = new JButton("Show Group Total");
         showMessagesTotalButton = new JButton("Show Messages Total");
         showPositivePercentageButton = new JButton("Show Positive Percentage");
-        //test = new JLabel("testttt");
 
         userIDTextField.setSize(80, 25);
         userIDButton.setSize(150, 100);
@@ -91,7 +69,6 @@ public class AdminView extends JFrame{
         buttonPanel.setSize(400, 800);
         treePanel.setSize(400, 800);
         openUserViewButton.setSize(300,60);
-        //test.setSize(80,25);
         showUserTotalButton.setSize(190, 50);
         showGroupTotalButton.setSize(190, 50);
         showMessagesTotalButton.setSize(190, 50);
@@ -116,11 +93,9 @@ public class AdminView extends JFrame{
         final Font currentFont = tree.getFont();
         final Font bigFont = new Font(currentFont.getName(), currentFont.getStyle(), currentFont.getSize() + 10);
         tree.setFont(bigFont);
-        //test.setLocation(400, );
 
         this.setLayout(null);
         buttonPanel.setLayout(null);
-        //treePanel.setLayout();
 
         this.add(buttonPanel);
         this.add(treePanel);
@@ -136,8 +111,6 @@ public class AdminView extends JFrame{
         buttonPanel.add(showMessagesTotalButton);
         buttonPanel.add(showPositivePercentageButton);
         treePanel.add(tree);
-        //treePanel.add(test);
-        //treePanel.setAlignmentX(Component.RIGHT_ALIGNMENT);
 
     }
 

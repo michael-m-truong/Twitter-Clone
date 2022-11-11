@@ -17,7 +17,6 @@ public class TwitterTreeNode extends DefaultMutableTreeNode{
 
     @Override
     public boolean isLeaf() {
-        // TODO Auto-generated method stub
         return !super.allowsChildren;
     }
 }

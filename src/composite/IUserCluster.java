@@ -1,6 +1,5 @@
 package composite;
 
-import visitor.CountUsersVisitor;
 import visitor.GetUserVisitor;
 import visitor.ITwitterVisitor;
 

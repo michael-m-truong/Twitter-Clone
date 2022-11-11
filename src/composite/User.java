@@ -9,7 +9,7 @@ import observer.Subject;
 import visitor.GetUserVisitor;
 import visitor.ITwitterVisitor;
 
-public class User extends Subject implements IUserCluster, IUser, Observer {
+public class User extends Subject implements IUser, Observer {
     private String UserID;
     private List<User> currentFollowing = new ArrayList<>();
     private List<String> newsfeed = new ArrayList<>();
@@ -30,7 +30,6 @@ public class User extends Subject implements IUserCluster, IUser, Observer {
     @Override
     public void tweetMessage(String msg) {
         userTweets.add(msg);
-        System.out.println("size: " + userTweets.size());
         newsfeed.add(msg);
         notifyFollowers();
     }
@@ -43,9 +42,6 @@ public class User extends Subject implements IUserCluster, IUser, Observer {
 
     @Override
     public void update(Subject user) {
-        System.out.println(((User) user).getID());
-        System.out.println(userTweets.size());
-        System.out.println("user tweets: " + userTweets);
         this.addToNewsFeed(((User) user).getLatestTweet());
         
     }

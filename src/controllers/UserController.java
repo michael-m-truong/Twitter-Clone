@@ -9,13 +9,14 @@ import composite.IUser;
 import composite.IUserGroup;
 import composite.Tweet;
 import composite.User;
+import models.IUserModel;
 import observer.Observer;
 import observer.Subject;
 import singleton.RootGroup;
 import views.UserView;
 import visitor.GetUserVisitor;
 
-public class UserController extends Subject{
+public class UserController extends Subject implements IUserModel{
     private UserView view;
     private IUser user;
 
@@ -30,7 +31,6 @@ public class UserController extends Subject{
         updateNewsFeed();
         view.initializeFollowingList(user);
         view.initializeNewsfeed(user);
-        //this.attach(view);
     }
 
     public void display() {
@@ -47,7 +47,6 @@ public class UserController extends Subject{
             user.followUser((User) followedUser);
             followedUser.attach((Observer) user);
             model.add(model.size(),textField.getText());
-            System.out.println("followed user: "+ followedUser.getID());
             if (followedUser.getUserController() != null){
                 followedUser.getUserController().attach(view);
             }
@@ -70,7 +69,6 @@ public class UserController extends Subject{
             Tweet tweet = new Tweet();
             tweet.setNotification(user.getID() + ": " + textField.getText());
             setLatestData(tweet);
-            System.out.println("hereeeeeeeeeee");
             notifyObservers();
         });
         

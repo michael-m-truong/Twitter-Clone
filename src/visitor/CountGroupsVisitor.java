@@ -8,17 +8,13 @@ public class CountGroupsVisitor implements ITwitterVisitor{
 
     public int visit(UserGroup userGroup) {
         count = 0;
-        System.out.println(userGroup.getID());
         userGroup.getUserGroup().forEach(child -> {
             count+=child.accept(this);
-            //System.out.println("eeeee");
         });
-        //state+=count;
         return count+1;
     }
 
     public int visit(User user) {
-        System.out.println(user.getID());
         return 0;
     }
 }

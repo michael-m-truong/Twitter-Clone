@@ -1,6 +1,5 @@
 package composite;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface IUserGroup extends IUserCluster{

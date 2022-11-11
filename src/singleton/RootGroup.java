@@ -1,8 +1,5 @@
 package singleton;
 
-import composite.IUserCluster;
-import composite.IUserGroup;
-import composite.User;
 import composite.UserGroup;
 import views.TwitterTreeNode;
 

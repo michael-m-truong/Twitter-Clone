@@ -13,12 +13,10 @@ public class GetUserVisitor{
     }
 
     public User visit(UserGroup userGroup) {
-        System.out.println(userGroup.getID());
         userGroup.getUserGroup().forEach(child -> {
             if (child.findUser(this) != null) {
                 user = child.findUser(this);
             }
-            //System.out.println("eeeee");
         });
         return user;
     }

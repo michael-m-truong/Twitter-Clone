@@ -3,7 +3,6 @@ package composite;
 public class Tweet implements INotification{
 
     private String notification;
-    private String userID;
 
     @Override
     public String getNotification() {

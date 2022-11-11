@@ -1,6 +1,5 @@
 package observer;
 
-import composite.User;
 
 public interface Observer {
     
