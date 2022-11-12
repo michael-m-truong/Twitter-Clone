@@ -48,12 +48,14 @@ public class UserView extends JFrame implements Observer{
         followUserTextField = new JTextField();
         followUserButton = new JButton("Follow User");
         followingList = new JList<String>(model);
+        model.add(0, "Current Following");
         tweetButton = new JButton("Tweet Message");
         tweetPanel = new JPanel();
         tweetTextField = new JTextField();
         tweetListPane = new JScrollPane();
         tweetListModel = new DefaultListModel<>();
         newsfeed = new JList<>(tweetListModel);
+        tweetListModel.add(0, "News feed");
         
 
 
