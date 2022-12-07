@@ -31,6 +31,8 @@ public class AdminView extends JFrame{
     private JButton showGroupTotalButton;
     private JButton showMessagesTotalButton;
     private JButton showPositivePercentageButton;
+    private JButton verifyValidUserAndGroupNameButton;
+    private JButton showLastUpdatedUserButton;
 
 
     public AdminView(){
@@ -59,6 +61,8 @@ public class AdminView extends JFrame{
         showGroupTotalButton = new JButton("Show Group Total");
         showMessagesTotalButton = new JButton("Show Messages Total");
         showPositivePercentageButton = new JButton("Show Positive Percentage");
+        verifyValidUserAndGroupNameButton = new JButton("Verify Unique User/Group");
+        showLastUpdatedUserButton = new JButton("Show Last Updated User");
 
         userIDTextField.setSize(80, 25);
         userIDButton.setSize(150, 100);
@@ -73,6 +77,8 @@ public class AdminView extends JFrame{
         showGroupTotalButton.setSize(190, 50);
         showMessagesTotalButton.setSize(190, 50);
         showPositivePercentageButton.setSize(190, 50);
+        verifyValidUserAndGroupNameButton.setSize(190, 50);
+        showLastUpdatedUserButton.setSize(190, 50);
 
         userIDButton.setLocation(225,100);
         userIDTextField.setLocation(125, 100);
@@ -90,6 +96,8 @@ public class AdminView extends JFrame{
         showGroupTotalButton.setLocation(200, 500);
         showMessagesTotalButton.setLocation(10, 650);
         showPositivePercentageButton.setLocation(200, 650);
+        verifyValidUserAndGroupNameButton.setLocation(10, 575);
+        showLastUpdatedUserButton.setLocation(200, 575);
         final Font currentFont = tree.getFont();
         final Font bigFont = new Font(currentFont.getName(), currentFont.getStyle(), currentFont.getSize() + 10);
         tree.setFont(bigFont);
@@ -110,6 +118,8 @@ public class AdminView extends JFrame{
         buttonPanel.add(showGroupTotalButton);
         buttonPanel.add(showMessagesTotalButton);
         buttonPanel.add(showPositivePercentageButton);
+        buttonPanel.add(verifyValidUserAndGroupNameButton);
+        buttonPanel.add(showLastUpdatedUserButton);
         treePanel.add(tree);
 
     }
@@ -134,6 +144,10 @@ public class AdminView extends JFrame{
     public JButton getShowMessageTotalButton() {return showMessagesTotalButton; }
 
     public JButton getShowPositivePercentageButton() {return showPositivePercentageButton; }
+
+    public JButton getVerifyValidUserAndGroupNameButton() {return verifyValidUserAndGroupNameButton;}
+
+    public JButton getShowLastUpdatedUserButton() { return showLastUpdatedUserButton;}
 
 
 }

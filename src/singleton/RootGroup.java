@@ -8,7 +8,7 @@ public class RootGroup extends UserGroup  {
     private TwitterTreeNode rootNode;
 
     private RootGroup(){ 
-        super("Root");
+        super("Root", System.currentTimeMillis());
     }
 
     public static RootGroup getInstance() {

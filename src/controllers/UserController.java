@@ -70,6 +70,7 @@ public class UserController extends Subject implements IUserModel{
             tweet.setNotification(user.getID() + ": " + textField.getText());
             setLatestData(tweet);
             notifyObservers();
+            view.getLastUpdateTimLabel().setText("User lastUpdateTime in ms: " + String.valueOf(((User) user).getLastUpdateTime()));
         });
         
     }

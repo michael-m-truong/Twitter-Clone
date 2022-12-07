@@ -24,7 +24,9 @@ import visitor.CountGroupsVisitor;
 import visitor.CountMessagesVisitor;
 import visitor.CountPositiveMessagesVisitor;
 import visitor.CountUsersVisitor;
+import visitor.GetLastUpdatedUserVisitor;
 import visitor.ITwitterVisitor;
+import visitor.VerifyValidUserAndGroupVisitor;
 
 public class AdminController implements IAdminModel{
     private AdminView view;
@@ -110,7 +112,7 @@ public class AdminController implements IAdminModel{
                 IUserGroup tempSelectedGroup = (IUserGroup) selectedUserGroup.get(selectedNode.getPath()[i].getParent().getIndex(selectedNode.getPath()[i]));
                 selectedUserGroup = tempSelectedGroup.getUserGroup();
             }
-            IUserCluster newUser = new User(userID);
+            IUserCluster newUser = new User(userID, System.currentTimeMillis());
             selectedUserGroup.add(newUser);
         });
     }
@@ -132,7 +134,7 @@ public class AdminController implements IAdminModel{
                 IUserGroup tempSelectedGroup = (IUserGroup) selectedUserGroup.get(selectedNode.getPath()[i].getParent().getIndex(selectedNode.getPath()[i]));
                 selectedUserGroup = tempSelectedGroup.getUserGroup();
             }
-            IUserCluster newUserGroup = new UserGroup(userGroupID);
+            IUserCluster newUserGroup = new UserGroup(userGroupID, System.currentTimeMillis());
             selectedUserGroup.add(newUserGroup);
         });
     }
@@ -142,6 +144,8 @@ public class AdminController implements IAdminModel{
         JButton groupTotalButton = view.getShowGroupTotalButton();
         JButton messagesTotalButton = view.getShowMessageTotalButton();
         JButton positivePercentageButton = view.getShowPositivePercentageButton();
+        JButton verifyValidUserAndGroupNameButton = view.getVerifyValidUserAndGroupNameButton();
+        JButton showLastUpdatedUserButton = view.getShowLastUpdatedUserButton();
 
         userTotalButton.addActionListener(e -> {
             JFrame jframe = new JFrame();
@@ -194,6 +198,37 @@ public class AdminController implements IAdminModel{
             stat.setLocation(75,150);
             jframe.add(stat);
             jframe.setVisible(true);
+        });
+        verifyValidUserAndGroupNameButton.addActionListener(e -> {
+            JFrame jframe = new JFrame();
+            jframe.setSize(300, 300);
+            JLabel stat = new JLabel();
+            ITwitterVisitor verifyVisitor = new VerifyValidUserAndGroupVisitor();
+            IUserGroup root = RootGroup.getInstance();
+            int verify = root.accept(verifyVisitor);
+            if (verify < 0) {
+                stat.setText("There contains INVALID users/usergroups");
+            }
+            else {
+                stat.setText("All users/usergroups are VALID");
+            }
+            stat.setLocation(75,150);
+            jframe.add(stat);
+            jframe.setVisible(true);
+        });
+        showLastUpdatedUserButton.addActionListener(e -> {
+            System.out.println("eeee");
+            JFrame jframe = new JFrame();
+            jframe.setSize(300, 300);
+            JLabel stat = new JLabel();
+            GetLastUpdatedUserVisitor lastUpdatedVisitor = new GetLastUpdatedUserVisitor();
+            IUserGroup root = RootGroup.getInstance();
+            String lastUpdatedUser = root.accept(lastUpdatedVisitor);
+            stat.setText("Last updated user: " + lastUpdatedUser);
+            stat.setLocation(75,150);
+            jframe.add(stat);
+            jframe.setVisible(true);
+            
         });
     }
 }

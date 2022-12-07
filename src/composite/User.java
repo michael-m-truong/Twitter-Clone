@@ -6,6 +6,7 @@ import java.util.List;
 import controllers.UserController;
 import observer.Observer;
 import observer.Subject;
+import visitor.GetLastUpdatedUserVisitor;
 import visitor.GetUserVisitor;
 import visitor.ITwitterVisitor;
 
@@ -15,9 +16,13 @@ public class User extends Subject implements IUser, Observer {
     private List<String> newsfeed = new ArrayList<>();
     private List<String> userTweets = new ArrayList<>();
     private UserController controller = null;
+    private long creationTime;
+    private long lastUpdateTime;
 
-    public User(String UserID) {
+    public User(String UserID, long creationTime) {
         this.UserID = UserID;
+        this.creationTime = creationTime;
+        this.lastUpdateTime = creationTime;   // the first time updated is when created
     }
 
     @Override
@@ -30,12 +35,14 @@ public class User extends Subject implements IUser, Observer {
     public void tweetMessage(String msg) {
         userTweets.add(msg);
         newsfeed.add(msg);
-        notifyFollowers();
+        notifyFollowers(System.currentTimeMillis());
     }
 
-    public void notifyFollowers() {
+    public void notifyFollowers(long lastUpdateTime) {
+        this.setLastUpdateTime(lastUpdateTime);
         for (Observer user: this.getObservers()) {
             user.update(this);
+            ((User) user).setLastUpdateTime(lastUpdateTime);
         }
     }
 
@@ -88,5 +95,22 @@ public class User extends Subject implements IUser, Observer {
         return userTweets;
     }
     
+    public long getCreationTime() {
+        return creationTime;
+    }
+
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public void setLastUpdateTime(long lastUpdateTime) {
+        this.lastUpdateTime = lastUpdateTime;
+    }
+
+    @Override
+    public String accept(GetLastUpdatedUserVisitor visitor) {
+        return visitor.visit(this);
+    }
+
     
 }

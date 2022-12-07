@@ -5,6 +5,7 @@ import java.awt.Color;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -31,6 +32,8 @@ public class UserView extends JFrame implements Observer{
     private JList<String> newsfeed;
     private JScrollPane tweetListPane;
     private DefaultListModel<String> tweetListModel;
+    private JLabel creationTimeLabel;
+    private JLabel lastUpdateTimeLabel;
 
     private User user;
 
@@ -56,7 +59,8 @@ public class UserView extends JFrame implements Observer{
         tweetListModel = new DefaultListModel<>();
         newsfeed = new JList<>(tweetListModel);
         tweetListModel.add(0, "News feed");
-        
+        creationTimeLabel = new JLabel("User creationTime in ms: " + String.valueOf(user.getCreationTime()));
+        lastUpdateTimeLabel = new JLabel("User lastUpdateTime in ms: " + String.valueOf(user.getLastUpdateTime()));
 
 
         followingListPane = new JScrollPane(followingList);
@@ -75,7 +79,8 @@ public class UserView extends JFrame implements Observer{
         tweetPanel.setBackground(new Color(29,161,242));
         tweetListPane.setSize(600,220);
         tweetListPane.setBackground(Color.lightGray);
-
+        creationTimeLabel.setSize(800,25);
+        lastUpdateTimeLabel.setSize(800,25);
 
         followUserButton.setLocation(300, 25);
         followUserTextField.setLocation(25, 25);
@@ -85,8 +90,8 @@ public class UserView extends JFrame implements Observer{
         tweetTextField.setLocation(25,25);
         tweetPanel.setLocation(0,400);
         tweetListPane.setLocation(0, 580);
-        
-
+        creationTimeLabel.setLocation(30, 90);
+        lastUpdateTimeLabel.setLocation(30, 130);
 
         this.setLayout(null);
         this.add(followPanel);
@@ -95,6 +100,8 @@ public class UserView extends JFrame implements Observer{
         this.add(tweetListPane);
         followPanel.add(followUserButton);
         followPanel.add(followUserTextField);
+        followPanel.add(creationTimeLabel);
+        followPanel.add(lastUpdateTimeLabel);
         followPanel.setLayout(null);
         tweetPanel.add(tweetButton);
         tweetPanel.add(tweetTextField);
@@ -134,6 +141,8 @@ public class UserView extends JFrame implements Observer{
     public void update(Subject user) {
         if (user.getLatestData() instanceof Tweet) {
             tweetListModel.add(tweetListModel.size(),user.getLatestData().getNotification());
+            lastUpdateTimeLabel.setText("User lastUpdateTime in ms: " + String.valueOf(this.user.getLastUpdateTime()));
+            System.out.println(lastUpdateTimeLabel.getText());
         }
         else if (user.getLatestData() instanceof Follower) {
             if (this.user.getID() == user.getLatestData().getUserID()) {
@@ -147,4 +156,5 @@ public class UserView extends JFrame implements Observer{
     }
 
 
+    public JLabel getLastUpdateTimLabel() { return lastUpdateTimeLabel;}
 }
